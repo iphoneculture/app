@@ -6,74 +6,78 @@
     <title>Orden de Compra</title>
     <style>
         body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-#formulario {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-}
+        #formulario {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
 
-.pantalla {
-  display: none;
-}
+        .pantalla {
+            display: none;
+        }
 
-.pantalla.activa {
-  display: block;
-}
+        .pantalla.activa {
+            display: block;
+        }
 
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-  color: #333;
-}
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
 
-input[type="text"],
-input[type="email"],
-select,
-textarea {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-input[type="button"], input[type="submit"] {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
+        input[type="button"],
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-input[type="button"]:hover, input[type="submit"]:hover {
-  background-color: #218838;
-}
+        input[type="button"]:hover,
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
 
-</style>
+    </style>
     <style>
         .pantalla {
             display: none;
         }
+
         .pantalla.activa {
             display: block;
         }
+
         .button {
             display: none;
         }
@@ -81,7 +85,7 @@ input[type="button"]:hover, input[type="submit"]:hover {
 </head>
 <body>
     <form id="formulario" method="post" action="URL_DEL_SCRIPT">
-        <label for="producto">Orden de Compra de iPhone 15 Pro Max 256GB</label>
+        <label for="producto">Orden de Compra de <span id="nombreProducto"></span></label>
         
         <div class="pantalla activa" id="pantalla1">
             <label for="start">¿Listo para hacer tu pedido?</label>
@@ -163,6 +167,23 @@ input[type="button"]:hover, input[type="submit"]:hover {
     </form>
 
     <script>
+        // Función para obtener parámetro de la URL por nombre
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Obtener el nombre del producto de la URL
+        const productoSeleccionado = getParameterByName('producto');
+
+        // Mostrar el nombre del producto seleccionado en el formulario
+        document.getElementById('nombreProducto').textContent = productoSeleccionado;
+
         function mostrarPantalla(numero) {
             // Ocultar todas las pantallas
             document.querySelectorAll('.pantalla').forEach(pantalla => {
@@ -233,10 +254,13 @@ input[type="button"]:hover, input[type="submit"]:hover {
             const add = document.getElementById('add').value;
             const added = add === 'si' ? document.getElementById('added').value : 'Ninguno';
 
+            const producto = productoSeleccionado; // Obtener el nombre del producto desde la URL
+
             const resumen = `
                 <p><strong>Nombre Completo:</strong> ${nombre}</p>
                 <p><strong>Contacto:</strong> ${contacto}</p>
                 <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Producto:</strong> ${producto}</p> <!-- Mostrar el producto seleccionado -->
                 <p><strong>Método de Pago:</strong> ${pago}</p>
                 <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
                 <p><strong>Dirección:</strong> ${direccion}</p>
