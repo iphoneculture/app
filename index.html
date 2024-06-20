@@ -177,6 +177,67 @@
         </form>
         
         <script>
+            
+            function mostrarPantalla(numero) {
+            // Ocultar todas las pantallas
+            document.querySelectorAll('.pantalla').forEach(pantalla => {
+                pantalla.classList.remove('activa');
+            });
+
+            // Mostrar la pantalla correspondiente
+            document.getElementById('pantalla' + numero).classList.add('activa');
+
+            // Generar y mostrar el resumen si es la pantalla 8
+            if (numero === 8) {
+                generarResumen();
+            }
+        }
+
+        function toggleAddress() {
+            const delivery = document.getElementById('delivery').value;
+            const addressDiv = document.getElementById('direccion');
+            const addressInput = document.getElementById('address');
+            if (delivery === 'envio') {
+                addressDiv.style.display = 'block';
+                addressInput.required = true;
+            } else {
+                addressDiv.style.display = 'none';
+                addressInput.required = false;
+            }
+        }
+
+        function toggleAdd() {
+            const add = document.getElementById('add').value;
+            const pantallaN = document.getElementById('pantallaN');
+            const continuarSinAgregar = document.getElementById('continuarSinAgregar');
+            if (add === 'si') {
+                pantallaN.style.display = 'block';
+                continuarSinAgregar.style.display = 'none';
+            } else {
+                pantallaN.style.display = 'none';
+                continuarSinAgregar.style.display = 'block';
+            }
+        }
+
+        function checkInputs() {
+            const pantallaActual = document.querySelector('.pantalla.activa');
+            const inputs = pantallaActual.querySelectorAll('input[required], select[required]');
+            let completo = true;
+
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    completo = false;
+                }
+            });
+
+            const button = pantallaActual.querySelector('.button');
+            if (completo) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        }
+            
             // Función para obtener parámetro de la URL por nombre
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
