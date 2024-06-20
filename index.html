@@ -84,8 +84,7 @@
     </style>
 </head>
 <body>
-    <form id="formulario" method="post" action="URL_DEL_SCRIPT">
-        <label for="producto">Orden de Compra de <span id="nombreProducto"></span></label>
+    <form id="formulario" method="post" action="https://script.google.com/macros/s/AKfycbxwx8VumujxptTuILsVkQ8hhG9UbkoeyPzCaOhbZ8qu4p6nMD5IV8-GlDnE3U98oI4_/exec">
         
         <div class="pantalla activa" id="pantalla1">
             <label for="start">¿Listo para hacer tu pedido?</label>
@@ -248,13 +247,14 @@
             const nombre = document.getElementById('fullname').value;
             const contacto = document.getElementById('number').value;
             const email = document.getElementById('email').value;
+            const producto = productoSeleccionado; // Obtener el nombre del producto desde la URL
             const pago = document.getElementById('pay').value;
             const entrega = document.getElementById('delivery').value;
             const direccion = entrega === 'envio' ? document.getElementById('address').value : 'N/A';
             const add = document.getElementById('add').value;
             const added = add === 'si' ? document.getElementById('added').value : 'Ninguno';
 
-            const producto = productoSeleccionado; // Obtener el nombre del producto desde la URL
+            
 
             const resumen = `
                 <p><strong>Nombre Completo:</strong> ${nombre}</p>
@@ -276,7 +276,7 @@
             const form = document.getElementById('formulario');
             const formData = new FormData(form);
 
-            fetch('https://script.google.com/macros/s/AKfycbybAh1FN3cngXrM7OP9z9ygpI0ocRHLacPqzuP2-cDTCcZUeMAChqi-1WQBhkA4Ul6F/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbxwx8VumujxptTuILsVkQ8hhG9UbkoeyPzCaOhbZ8qu4p6nMD5IV8-GlDnE3U98oI4_/exec', {
                 method: 'POST',
                 body: formData
             })
@@ -295,3 +295,4 @@
     </script>
 </body>
 </html>
+
