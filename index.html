@@ -1,297 +1,312 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orden de Compra</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Orden de Compra</title>
+        <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Cambié height a min-height para permitir que el contenido haga scroll en dispositivos pequeños */
+    }
+    
+    #formulario {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 90%; /* Cambiado a 90% para adaptarse mejor a diferentes tamaños de pantalla */
+        box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
+    }
+    
+    .pantalla {
+        display: none;
+    }
+    
+    .pantalla.activa {
+        display: block;
+    }
+    
+    .button {
+        display: none;
+    }
+    
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+        color: #333;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+        width: 100%; /* Cambiado a 100% para adaptarse al contenedor */
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
+    }
+    
+    input[type="button"],
+    input[type="submit"] {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%; /* Cambiado a 100% para adaptarse al contenedor */
+        box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
+    }
+    
+    input[type="button"]:hover,
+    input[type="submit"]:hover {
+        background-color: #218838;
+    }
+    
+    /* Media queries para adaptar el formulario en pantallas más pequeñas */
+    @media (max-width: 768px) {
         #formulario {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
+            width: 90%;
+            max-width: 90%; /* Reducido el máximo para que se vea bien en dispositivos más pequeños */
         }
-
-        .pantalla {
-            display: none;
+    }
+    
+    @media (max-width: 576px) {
+        #formulario {
+            width: 90%;
+            max-width: 100%; /* Hacer el formulario ocupar todo el ancho disponible en pantallas muy pequeñas */
+            padding: 15px; /* Ajuste de padding para pantallas muy pequeñas */
         }
+    }
+</style>
 
-        .pantalla.activa {
-            display: block;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        select,
-        textarea {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        input[type="button"],
-        input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        input[type="button"]:hover,
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-
-    </style>
-    <style>
-        .pantalla {
-            display: none;
-        }
-
-        .pantalla.activa {
-            display: block;
-        }
-
-        .button {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <form id="formulario" method="post" action="https://script.google.com/macros/s/AKfycby8ipSe0PWaQvquGYR8nHjdDD52bQtChEe5nKZzal6xcScBKiJSwbTqoSh5PN29r4X7/exec">
-        
-        <div class="pantalla activa" id="pantalla1">
-            <label for="start">¿Listo para hacer tu pedido?</label>
-            <input type=hidden id="producto" name="">
-            <input type="button" value="Comenzar" onclick="mostrarPantalla(2)">
-        </div>
-
-        <div class="pantalla" id="pantalla2">
-            <label for="fullname">¿Cuál es tu nombre completo?</label>
-            <input type="text" id="fullname" name="fullname" required pattern="[a-zA-ZÀ-ÿ\s]{1,}" oninput="checkInputs()">
-            <input type="button" value="Continuar" onclick="mostrarPantalla(3)" class="button">
-        </div>
-
-        <div class="pantalla" id="pantalla3">
-            <h3> ¿Podemos obtener su número y correo electrónico en caso de que necesitemos comunicarnos con usted?</h3>
-            <label for="number">Número de WhatsApp</label>
-            <input type="text" id="number" name="number" required pattern="\+?\d{1,15}" oninput="checkInputs()">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" oninput="checkInputs()">
-            <input type="button" value="Continuar" onclick="mostrarPantalla(4)" class="button">
-        </div>
-        
-        <div class="pantalla" id="pantalla4">
-            <label for="pay">Por favor, seleccione cómo desea pagar</label>
-            <select id="pay" name="pay" required onchange="checkInputs()">
-                <option value=""> </option>
-                <option value="Efectivo en ARS">Efectivo en ARS</option>
-                <option value="Efectivo en USD">Efectivo en USD</option>
-                <option value="Transferencia">Transferencia</option>
-                <option value="Tarjeta de Crédito en 1 Cuota">Tarjeta de Crédito en 1 Cuota</option>
-                <option value="Tarjeta de Crédito en 3 Cuotas">Tarjeta de Crédito en 3 Cuotas</option>
-                <option value="Tarjeta de Crédito en 6 Cuotas">Tarjeta de Crédito en 6 Cuotas</option>
-                <option value="Tarjeta de Crédito en 9 Cuotas">Tarjeta de Crédito en 9 Cuotas</option>
-                <option value="Tarjeta de Crédito en 12 Cuotas">Tarjeta de Crédito en 12 Cuotas</option>
-            </select>
-            <input type="button" value="Continuar" onclick="mostrarPantalla(5)" class="button">
-        </div>
-
-        <div class="pantalla" id="pantalla5">
-            <label for="delivery">Por favor, seleccione su tipo de entrega</label>
-            <select id="delivery" name="delivery" required onchange="toggleAddress(); checkInputs()">
-                <option value=""> </option>
-                <option value="retiro">Retiro en el local</option>
-                <option value="envio">Envío por correo</option>
-            </select>
-            <div id="direccion" style="display: none;">
-                <label for="address">¿A qué dirección enviamos el producto?</label>
-                <input type="text" id="address" name="address">
-            </div>
-            <input type="button" value="Continuar" onclick="mostrarPantalla(6)" class="button">
-        </div>
-
-        <div class="pantalla" id="pantalla6">
-            <label for="add">¿Deseas agregar algún otro producto a tu compra?</label>
-            <select id="add" name="add" onchange="toggleAdd(); checkInputs()" required>
-                <option value=""></option>
-                <option value="no">No</option>
-                <option value="si">Sí</option>
-            </select>
-            <div id="pantallaN" style="display: none;">
-                <label for="added">¿Cuáles?</label>
-                <select id="added" name="added">
-                    <option value="iPhone">iPhone</option>
-                </select>
-            </div>
-            <input type="button" id="continuarSinAgregar" value="Continuar" onclick="mostrarPantalla(8)" class="button">
-        </div>
-
-        <div class="pantalla" id="pantalla8">
-            <h2>Resumen de la Orden de Compra</h2>
-            <div id="resumenDatos">
-                <!-- Aquí se insertará dinámicamente el resumen generado -->
-            </div>
-            <input type="button" value="Enviar Orden de Compra" onclick="enviarOrdenCompra(event)">
-        </div>
-        
-        <div class="pantalla" id="pantalla9">
-            <h2>Orden de Compra Enviada. En breve un vendedor se comunicará con usted.</h2>
-        </div>
-    </form>
-
-    <script>
-        // Función para obtener parámetro de la URL por nombre
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-        // Obtener el nombre del producto de la URL
-        const productoSeleccionado = getParameterByName('producto');
-
-        // Mostrar el nombre del producto seleccionado en el formulario
-        document.getElementById('nombreProducto').textContent = productoSeleccionado;
-
-        function mostrarPantalla(numero) {
-            // Ocultar todas las pantallas
-            document.querySelectorAll('.pantalla').forEach(pantalla => {
-                pantalla.classList.remove('activa');
-            });
-
-            // Mostrar la pantalla correspondiente
-            document.getElementById('pantalla' + numero).classList.add('activa');
-
-            // Generar y mostrar el resumen si es la pantalla 8
-            if (numero === 8) {
-                generarResumen();
-            }
-        }
-
-        function toggleAddress() {
-            const delivery = document.getElementById('delivery').value;
-            const addressDiv = document.getElementById('direccion');
-            const addressInput = document.getElementById('address');
-            if (delivery === 'envio') {
-                addressDiv.style.display = 'block';
-                addressInput.required = true;
-            } else {
-                addressDiv.style.display = 'none';
-                addressInput.required = false;
-            }
-        }
-
-        function toggleAdd() {
-            const add = document.getElementById('add').value;
-            const pantallaN = document.getElementById('pantallaN');
-            const continuarSinAgregar = document.getElementById('continuarSinAgregar');
-            if (add === 'si') {
-                pantallaN.style.display = 'block';
-                continuarSinAgregar.style.display = 'none';
-            } else {
-                pantallaN.style.display = 'none';
-                continuarSinAgregar.style.display = 'block';
-            }
-        }
-
-        function checkInputs() {
-            const pantallaActual = document.querySelector('.pantalla.activa');
-            const inputs = pantallaActual.querySelectorAll('input[required], select[required]');
-            let completo = true;
-
-            inputs.forEach(input => {
-                if (!input.checkValidity()) {
-                    completo = false;
-                }
-            });
-
-            const button = pantallaActual.querySelector('.button');
-            if (completo) {
-                button.style.display = 'block';
-            } else {
-                button.style.display = 'none';
-            }
-        }
-
-        function generarResumen() {
-            const nombre = document.getElementById('fullname').value;
-            const contacto = document.getElementById('number').value;
-            const email = document.getElementById('email').value;
-            const producto = productoSeleccionado; // Obtener el nombre del producto desde la URL
-            const pago = document.getElementById('pay').value;
-            const entrega = document.getElementById('delivery').value;
-            const direccion = entrega === 'envio' ? document.getElementById('address').value : 'N/A';
-            const add = document.getElementById('add').value;
-            const added = add === 'si' ? document.getElementById('added').value : 'Ninguno';
-
-            const resumen = `
-                <p><strong>Nombre Completo:</strong> ${nombre}</p>
-                <p><strong>Contacto:</strong> ${contacto}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Producto:</strong> ${producto}</p>
-                <p><strong>Método de Pago:</strong> ${pago}</p>
-                <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
-                <p><strong>Dirección:</strong> ${direccion}</p>
-                <p><strong>Producto Adicional:</strong> ${added}</p>
-            `;
+    </head> 
+    <body>
+        <form id="formulario" method="post" action="https://script.google.com/macros/s/AKfycbzieQuf2pJaykHFEQ6Tagp-FRbCRyLOCH3Amh0Vmq7CG-b9ptbPHtvOeNxwQJ6td9PI/exec">
             
-            document.getElementById('resumenDatos').innerHTML = resumen;
-        }
+            <div class="pantalla activa" id="pantalla1">
+                <label for="start">¿Listo para hacer tu pedido?</label>
+                <input type=hidden id="producto" name="">
+                <input type="button" value="Comenzar" onclick="mostrarPantalla(2)">
+            </div>
 
-        function enviarOrdenCompra(event) {
-            event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+            <div class="pantalla" id="pantalla2">
+                <label for="fullname">¿Cuál es tu nombre completo?</label>
+                <input type="text" id="fullname" name="fullname" required pattern="[a-zA-ZÀ-ÿ\s]{1,}" oninput="checkInputs()">
+                <input type="button" value="Continuar" onclick="mostrarPantalla(3)" class="button">
+            </div>
 
-            const form = document.getElementById('formulario');
-            const formData = new FormData(form);
+            <div class="pantalla" id="pantalla3">
+                <h3> ¿Podemos obtener su número y correo electrónico en caso de que necesitemos comunicarnos con usted?</h3>
+                <label for="number">Número de WhatsApp</label>
+                <input type="text" id="number" name="number" required pattern="\+?\d{1,15}" oninput="checkInputs()">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" oninput="checkInputs()">
+                <input type="button" value="Continuar" onclick="mostrarPantalla(4)" class="button">
+            </div>
 
-            fetch('https://script.google.com/macros/s/AKfycby8ipSe0PWaQvquGYR8nHjdDD52bQtChEe5nKZzal6xcScBKiJSwbTqoSh5PN29r4X7/exec', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    mostrarPantalla(9); // Mostrar pantalla de orden enviada si la respuesta es exitosa
-                } else {
-                    throw new Error('Error al enviar la orden de compra');
+            <div class="pantalla" id="pantalla4">
+                <label for="pay">Por favor, seleccione cómo desea pagar</label>
+                <select id="pay" name="pay" required onchange="checkInputs()">
+                    <option value=""> </option>
+                    <option value="Efectivo en ARS">Efectivo en ARS</option>
+                    <option value="Efectivo en USD">Efectivo en USD</option>
+                    <option value="Transferencia">Transferencia</option>
+                    <option value="Tarjeta de Crédito en 1 Cuota">Tarjeta de Crédito en 1 Cuota</option>
+                    <option value="Tarjeta de Crédito en 3 Cuotas">Tarjeta de Crédito en 3 Cuotas</option>
+                    <option value="Tarjeta de Crédito en 6 Cuotas">Tarjeta de Crédito en 6 Cuotas</option>
+                    <option value="Tarjeta de Crédito en 9 Cuotas">Tarjeta de Crédito en 9 Cuotas</option>
+                    <option value="Tarjeta de Crédito en 12 Cuotas">Tarjeta de Crédito en 12 Cuotas</option>
+                </select>
+                <input type="button" value="Continuar" onclick="mostrarPantalla(5)" class="button">
+            </div>
+
+            <div class="pantalla" id="pantalla5">
+                <label for="delivery">Por favor, seleccione su tipo de entrega</label>
+                <select id="delivery" name="delivery" required onchange="toggleAddress(); checkInputs()">
+                    <option value=""> </option>
+                    <option value="retiro">Retiro en el local</option>
+                    <option value="envio">Envío por correo</option>
+                </select>
+                <div id="direccion" style="display: none;">
+                    <label for="address">¿A qué dirección enviamos el producto?</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                <input type="button" value="Continuar" onclick="mostrarPantalla(6)" class="button">
+            </div>
+
+            <div class="pantalla" id="pantalla6">
+                <label for="add">¿Deseas agregar algún otro producto a tu compra?</label>
+                <select id="add" name="add" onchange="toggleAdd(); checkInputs()" required>
+                    <option value=""></option>
+                    <option value="no">No</option>
+                    <option value="si">Sí</option>
+                </select>
+                <div id="pantallaN" style="display: none;">
+                    <label for="added">¿Cuáles?</label>
+                    <select id="added" name="added">
+                        <option value="iPhone">iPhone</option>
+                    </select>
+                </div>
+                <input type="button" id="continuarSinAgregar" value="Continuar" onclick="mostrarPantalla(8)" class="button">
+            </div>
+
+            <div class="pantalla" id="pantalla8">
+                <h2>Resumen de la Orden de Compra</h2>
+                <div id="resumenDatos">
+                    <!-- Aquí se insertará dinámicamente el resumen generado -->
+                </div>
+                <input type="button" value="Enviar Orden de Compra" onclick="enviarOrdenCompra(event)">
+            </div>
+
+            <div class="pantalla" id="pantalla9">
+                <h2>Orden de Compra Enviada. En breve un vendedor se comunicará con usted.</h2>
+            </div>
+        </form>
+        
+        <script>
+            // Función para obtener parámetro de la URL por nombre
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                const results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+            // Obtener el nombre del producto de la URL
+            const productoSeleccionado = getParameterByName('producto');
+
+            // Mostrar el nombre del producto seleccionado en el formulario
+            document.getElementById('nombreProducto').textContent = productoSeleccionado;
+
+            //Visualización de pantallas
+            function mostrarPantalla(numero) {
+                // Oculta todas las pantallas
+                document.querySelectorAll('.pantalla').forEach(pantalla => {
+                    pantalla.classList.remove('activa');
+                });
+                // Mostrar la pantalla correspondiente
+                document.getElementById('pantalla' + numero).classList.add('activa');
+                // Generar y mostrar el resumen si es la pantalla 8
+                if (numero === 8) {
+                    generarResumen();
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Manejar errores o mostrar un mensaje al usuario si falla el envío
-            });
-        }
-    </script>
-</body>
+            }
+            //Función si la entrega es por envío
+            function toggleAddress() {
+                const delivery = document.getElementById('delivery').value;
+                const addressDiv = document.getElementById('direccion');
+                const addressInput = document.getElementById('address');
+                if (delivery === 'envio') {
+                    addressDiv.style.display = 'block';
+                    addressInput.required = true;
+                } else {
+                    addressDiv.style.display = 'none';
+                    addressInput.required = false;
+                }
+            }
+            //Función si se agrega un producto adicional
+            function toggleAdd() {
+                const add = document.getElementById('add').value;
+                const pantallaN = document.getElementById('pantallaN');
+                const continuarSinAgregar = document.getElementById('continuarSinAgregar');
+                if (add === 'si') {
+                    pantallaN.style.display = 'block';
+                    continuarSinAgregar.style.display = 'none';
+                } else {
+                    pantallaN.style.display = 'none';
+                    continuarSinAgregar.style.display = 'block';
+                }
+            }
+            //Función si la información está completa
+            function checkInputs() {
+                const pantallaActual = document.querySelector('.pantalla.activa');
+                const inputs = pantallaActual.querySelectorAll('input[required], select[required]');
+                let completo = true;
+
+                inputs.forEach(input => {
+                    if (!input.checkValidity()) {
+                        completo = false;
+                    }
+                });
+
+                const button = pantallaActual.querySelector('.button');
+                if (completo) {
+                    button.style.display = 'block';
+                } else {
+                    button.style.display = 'none';
+                }
+            }
+            //Generar Resumen
+            function generarResumen() {
+    const nombre = document.getElementById('fullname').value;
+    const contacto = document.getElementById('number').value;
+    const email = document.getElementById('email').value;
+    const pago = document.getElementById('pay').value;
+    const entrega = document.getElementById('delivery').value;
+    const direccion = entrega === 'envio' ? document.getElementById('address').value : 'N/A';
+    const add = document.getElementById('add').value;
+    const added = add === 'si' ? document.getElementById('added').value : 'Ninguno';
+    
+    // Obtener el nombre del producto seleccionado
+    const productoSeleccionado = getParameterByName('producto');
+    
+    const resumen = `
+        <p><strong>Nombre Completo:</strong> ${nombre}</p>
+        <p><strong>Contacto:</strong> ${contacto}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Producto:</strong> ${productoSeleccionado}</p>
+        <p><strong>Método de Pago:</strong> ${pago}</p>
+        <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
+        <p><strong>Dirección:</strong> ${direccion}</p>
+        <p><strong>Producto Adicional:</strong> ${added}</p>
+    `;
+    
+    document.getElementById('resumenDatos').innerHTML = resumen;
+}
+            //Enviar datos a Google Apps Script
+            function generarResumen() {
+    const nombre = document.getElementById('fullname').value;
+    const contacto = document.getElementById('number').value;
+    const email = document.getElementById('email').value;
+    const pago = document.getElementById('pay').value;
+    const entrega = document.getElementById('delivery').value;
+    const direccion = entrega === 'envio' ? document.getElementById('address').value : 'N/A';
+    const add = document.getElementById('add').value;
+    const added = add === 'si' ? document.getElementById('added').value : 'Ninguno';
+    
+    // Obtener el nombre del producto seleccionado
+    const productoSeleccionado = getParameterByName('producto');
+    
+    const resumen = `
+        <p><strong>Nombre Completo:</strong> ${nombre}</p>
+        <p><strong>Contacto:</strong> ${contacto}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Producto:</strong> ${productoSeleccionado}</p>
+        <p><strong>Método de Pago:</strong> ${pago}</p>
+        <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
+        <p><strong>Dirección:</strong> ${direccion}</p>
+        <p><strong>Producto Adicional:</strong> ${added}</p>
+    `;
+    
+    document.getElementById('resumenDatos').innerHTML = resumen;
+}
+        </script>
+    </body>
 </html>
 
