@@ -1,138 +1,211 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Orden de Compra</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>  
-    <body>
-        <form id="formulario">
-            <label for="producto">Orden de Compra de iPhone 15 Pro Max 256GB</label>
-            <div class="pantalla activa" id="pantalla1">
-                <label for="inicio">¿Listo para hacer tu pedido?</label>
-                <input type="button" value="Comenzar" onclick="mostrarPantalla(2)">
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden de Compra</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .pantalla {
+            display: none;
+        }
+        .pantalla.activa {
+            display: block;
+        }
+        .button {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="formulario" method="post" action="URL_DEL_SCRIPT">
+        <label for="producto">Orden de Compra de iPhone 15 Pro Max 256GB</label>
+        
+        <div class="pantalla activa" id="pantalla1">
+            <label for="start">¿Listo para hacer tu pedido?</label>
+            <input type="button" value="Comenzar" onclick="mostrarPantalla(2)">
+        </div>
 
-            <div class="pantalla" id="pantalla2">
-                <label for="pago">Por favor, seleccione cómo desea pagar</label>
-                <select id="pago" name="pago" required>
-                    <option value=""> </option>
-                    <option value="Efectivo en ARS">Efectivo en ARS</option>
-                    <option value="Efectivo en USD">Efectivo en USD</option>
-                    <option value="Transferencia">Transferencia</option>
-                    <option value="Tarjeta de Crédito en 1 Cuota">Tarjeta de Crédito en 1 Cuota</option>
-                    <option value="Tarjeta de Crédito en 3 Cuotas">Tarjeta de Crédito en 3 Cuotas</option>
-                    <option value="Tarjeta de Crédito en 6 Cuotas">Tarjeta de Crédito en 6 Cuotas</option>
-                    <option value="Tarjeta de Crédito en 9 Cuotas">Tarjeta de Crédito en 9 Cuotas</option>
-                    <option value="Tarjeta de Crédito en 12 Cuotas">Tarjeta de Crédito en 12 Cuotas</option>
-                </select>
-                <input type="button" value="Continuar" onclick="mostrarPantalla(3)">
-            </div>
+        <div class="pantalla" id="pantalla2">
+            <label for="fullname">¿Cuál es tu nombre completo?</label>
+            <input type="text" id="fullname" name="fullname" required pattern="[a-zA-ZÀ-ÿ\s]{1,}" oninput="checkInputs()">
+            <input type="button" value="Continuar" onclick="mostrarPantalla(3)" class="button">
+        </div>
 
-            <div class="pantalla" id="pantalla3">
-                <label for="entrega">Por favor, seleccione su tipo de entrega</label>
-                <select id="entrega" name="entrega" required>
-                    <option value=""> </option>
-                    <option value="Retiro en el local">Retiro en el local</option>
-                    <option value="Envío por correo">Envío por correo</option>
-                </select>
-                <input type="button" value="Continuar" onclick="mostrarPantalla(4)">
-            </div>
+        <div class="pantalla" id="pantalla3">
+            <h3> ¿Podemos obtener su número y correo electrónico en caso de que necesitemos comunicarnos con usted?</h3>
+            <label for="number">Número de WhatsApp</label>
+            <input type="text" id="number" name="number" required pattern="\+?\d{1,15}" oninput="checkInputs()">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" oninput="checkInputs()">
+            <input type="button" value="Continuar" onclick="mostrarPantalla(4)" class="button">
+        </div>
+        
+        <div class="pantalla" id="pantalla4">
+            <label for="pay">Por favor, seleccione cómo desea pagar</label>
+            <select id="pay" name="pay" required onchange="checkInputs()">
+                <option value=""> </option>
+                <option value="Efectivo en ARS">Efectivo en ARS</option>
+                <option value="Efectivo en USD">Efectivo en USD</option>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Tarjeta de Crédito en 1 Cuota">Tarjeta de Crédito en 1 Cuota</option>
+                <option value="Tarjeta de Crédito en 3 Cuotas">Tarjeta de Crédito en 3 Cuotas</option>
+                <option value="Tarjeta de Crédito en 6 Cuotas">Tarjeta de Crédito en 6 Cuotas</option>
+                <option value="Tarjeta de Crédito en 9 Cuotas">Tarjeta de Crédito en 9 Cuotas</option>
+                <option value="Tarjeta de Crédito en 12 Cuotas">Tarjeta de Crédito en 12 Cuotas</option>
+            </select>
+            <input type="button" value="Continuar" onclick="mostrarPantalla(5)" class="button">
+        </div>
 
-            <div class="pantalla" id="pantalla4">
-                <label for="nombre">Ahora, vamos vos. ¿Cuál es tu nombre completo?</label>
-                <input type="text" id="nombre" name="nombre" required>
-                <input type="button" value="Continuar" onclick="mostrarPantalla(5)">
+        <div class="pantalla" id="pantalla5">
+            <label for="delivery">Por favor, seleccione su tipo de entrega</label>
+            <select id="delivery" name="delivery" required onchange="toggleAddress(); checkInputs()">
+                <option value=""> </option>
+                <option value="retiro">Retiro en el local</option>
+                <option value="envio">Envío por correo</option>
+            </select>
+            <div id="direccion" style="display: none;">
+                <label for="address">¿A qué dirección enviamos el producto?</label>
+                <input type="text" id="address" name="address">
             </div>
+            <input type="button" value="Continuar" onclick="mostrarPantalla(6)" class="button">
+        </div>
 
-            <div class="pantalla" id="pantalla5">
-                <label for="contacto">¿Podemos obtener su número en caso de que necesitemos comunicarnos con usted?</label>
-                <input type="text" id="contacto" name="contacto" required>
-                <input type="button" value="Continuar" onclick="mostrarPantalla(6)">
-            </div>
-
-            <div class="pantalla" id="pantalla6">
-                <label for="email">¿A dónde debemos enviar el correo electrónico de confirmación del pedido?</label>
-                <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
-                <input type="button" value="Continuar" onclick="mostrarPantalla(7)">
-            </div>
-
-            <div class="pantalla" id="pantalla7">
-                <label for="agrega">¿Deseas agregar algún otro producto a tu compra?</label>
-                <select id="agrega" name="agrega" onchange="toggleAdd()" required>
-                    <option value=""></option>
-                    <option value="no">No</option>
-                    <option value="si">Sí</option>
-                </select>
-            </div>
-
-            <div class="pantalla" id="pantalla7" style="display:none;">
-                <label for="agregado">¿Cuáles?</label>
-                <select id="agregado" name="agregado" onchange= required>
+        <div class="pantalla" id="pantalla6">
+            <label for="add">¿Deseas agregar algún otro producto a tu compra?</label>
+            <select id="add" name="add" onchange="toggleAdd(); checkInputs()" required>
+                <option value=""></option>
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+            <div id="pantallaN" style="display: none;">
+                <label for="added">¿Cuáles?</label>
+                <select id="added" name="added">
                     <option value="iPhone">iPhone</option>
                 </select>
-                <input type="button" value="Continuar" onclick="mostrarPantalla(8)">
             </div>
+            <input type="button" id="continuarSinAgregar" value="Continuar" onclick="mostrarPantalla(8)" class="button">
+        </div>
 
-            <div class="pantalla" id="pantalla8">
-                <h2>Resumen de la Orden de Compra</h2>
-                <div id="resumenDatos">
-                    <!-- Aquí se insertará dinámicamente el resumen generado -->
-                </div>
-                <input type="button" value="Enviar Orden de Compra" onclick="generarImagen()">
+        <div class="pantalla" id="pantalla8">
+            <h2>Resumen de la Orden de Compra</h2>
+            <div id="resumenDatos">
+                <!-- Aquí se insertará dinámicamente el resumen generado -->
             </div>
+            <input type="button" value="Enviar Orden de Compra" onclick="enviarOrdenCompra(event)">
+        </div>
+        
+        <div class="pantalla" id="pantalla9">
+            <h2>Orden de Compra Enviada. En breve un vendedor se comunicará con usted.</h2>
+        </div>
+    </form>
 
-        </form>
+    <script>
+        function mostrarPantalla(numero) {
+            // Ocultar todas las pantallas
+            document.querySelectorAll('.pantalla').forEach(pantalla => {
+                pantalla.classList.remove('activa');
+            });
 
-        <script>
-            function mostrarPantalla(numero) {
-                // Ocultar todas las pantallas
-                document.querySelectorAll('.pantalla').forEach(pantalla => {
-                    pantalla.classList.remove('activa');
-                });
+            // Mostrar la pantalla correspondiente
+            document.getElementById('pantalla' + numero).classList.add('activa');
 
-                // Mostrar la pantalla correspondiente
-                document.getElementById('pantalla' + numero).classList.add('activa');
-
-                // Generar y mostrar el resumen si es la pantalla 7
-                if (numero === 7) {
-                    generarResumen();
-                }
+            // Generar y mostrar el resumen si es la pantalla 8
+            if (numero === 8) {
+                generarResumen();
             }
-
-            function toggleAdd() {
-          // Mostrar u ocultar el campo de detalles de reparaciones según la selección
-          const reparaciones = document.getElementById('agrega').value;
-          const detalleReparaciones = document.getElementById('agregado');
-          if (reparaciones === 'si') {
-            detalleReparaciones.style.display = 'block';
-          } else {
-            detalleReparaciones.style.display = 'none';
-          }
         }
 
-            function generarResumen() {
-                // Obtener valores del formulario
-                const pago = document.getElementById('pago').value;
-                const entrega = document.getElementById('entrega').value;
-                const nombre = document.getElementById('nombre').value;
-                const contacto = document.getElementById('contacto').value;
-                const email = document.getElementById('email').value;
-
-                // Crear el resumen
-                const resumenHTML = `
-                    <p><strong>Método de Pago:</strong> ${pago}</p>
-                    <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
-                    <p><strong>Nombre Completo:</strong> ${nombre}</p>
-                    <p><strong>Contacto:</strong> ${contacto}</p>
-                    <p><strong>Email:</strong> ${email}</p>
-                `;
-
-                // Insertar el resumen en el div correspondiente
-                document.getElementById('resumenDatos').innerHTML = resumenHTML;
+        function toggleAddress() {
+            const delivery = document.getElementById('delivery').value;
+            const addressDiv = document.getElementById('direccion');
+            const addressInput = document.getElementById('address');
+            if (delivery === 'envio') {
+                addressDiv.style.display = 'block';
+                addressInput.required = true;
+            } else {
+                addressDiv.style.display = 'none';
+                addressInput.required = false;
             }
-        </script>
-    </body>
-</html>
+        }
 
+        function toggleAdd() {
+            const add = document.getElementById('add').value;
+            const pantallaN = document.getElementById('pantallaN');
+            const continuarSinAgregar = document.getElementById('continuarSinAgregar');
+            if (add === 'si') {
+                pantallaN.style.display = 'block';
+                continuarSinAgregar.style.display = 'none';
+            } else {
+                pantallaN.style.display = 'none';
+                continuarSinAgregar.style.display = 'block';
+            }
+        }
+
+        function checkInputs() {
+            const pantallaActual = document.querySelector('.pantalla.activa');
+            const inputs = pantallaActual.querySelectorAll('input[required], select[required]');
+            let completo = true;
+
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    completo = false;
+                }
+            });
+
+            const button = pantallaActual.querySelector('.button');
+            if (completo) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        }
+
+        function generarResumen() {
+            const nombre = document.getElementById('fullname').value;
+            const contacto = document.getElementById('number').value;
+            const email = document.getElementById('email').value;
+            const pago = document.getElementById('pay').value;
+            const entrega = document.getElementById('delivery').value;
+            const direccion = entrega === 'envio' ? document.getElementById('address').value : 'N/A';
+            const add = document.getElementById('add').value;
+            const added = add === 'si' ? document.getElementById('added').value : 'Ninguno';
+
+            const resumen = `
+                <p><strong>Nombre Completo:</strong> ${nombre}</p>
+                <p><strong>Contacto:</strong> ${contacto}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Método de Pago:</strong> ${pago}</p>
+                <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
+                <p><strong>Dirección:</strong> ${direccion}</p>
+                <p><strong>Producto Adicional:</strong> ${added}</p>
+            `;
+            
+            document.getElementById('resumenDatos').innerHTML = resumen;
+        }
+
+        function enviarOrdenCompra(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+            const form = document.getElementById('formulario');
+            const formData = new FormData(form);
+
+            fetch('https://script.google.com/macros/s/AKfycbybAh1FN3cngXrM7OP9z9ygpI0ocRHLacPqzuP2-cDTCcZUeMAChqi-1WQBhkA4Ul6F/exec', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    mostrarPantalla(9); // Mostrar pantalla de orden enviada si la respuesta es exitosa
+                } else {
+                    throw new Error('Error al enviar la orden de compra');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Manejar errores o mostrar un mensaje al usuario si falla el envío
+            });
+        }
+    </script>
+</body>
+</html>
