@@ -5,94 +5,93 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Orden de Compra</title>
         <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh; /* Cambié height a min-height para permitir que el contenido haga scroll en dispositivos pequeños */
-    }
-    
-    #formulario {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
-        width: 90%; /* Cambiado a 90% para adaptarse mejor a diferentes tamaños de pantalla */
-        box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
-    }
-    
-    .pantalla {
-        display: none;
-    }
-    
-    .pantalla.activa {
-        display: block;
-    }
-    
-    .button {
-        display: none;
-    }
-    
-    label {
-        font-weight: bold;
-        margin-bottom: 5px;
-        display: block;
-        color: #333;
-    }
-    
-    input[type="text"],
-    input[type="email"],
-    select,
-    textarea {
-        width: 100%; /* Cambiado a 100% para adaptarse al contenedor */
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
-    }
-    
-    input[type="button"],
-    input[type="submit"] {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 100%; /* Cambiado a 100% para adaptarse al contenedor */
-        box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
-    }
-    
-    input[type="button"]:hover,
-    input[type="submit"]:hover {
-        background-color: #218838;
-    }
-    
-    /* Media queries para adaptar el formulario en pantallas más pequeñas */
-    @media (max-width: 768px) {
-        #formulario {
-            width: 90%;
-            max-width: 90%; /* Reducido el máximo para que se vea bien en dispositivos más pequeños */
-        }
-    }
-    
-    @media (max-width: 576px) {
-        #formulario {
-            width: 90%;
-            max-width: 100%; /* Hacer el formulario ocupar todo el ancho disponible en pantallas muy pequeñas */
-            padding: 15px; /* Ajuste de padding para pantallas muy pequeñas */
-        }
-    }
-</style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh; /* Cambié height a min-height para permitir que el contenido haga scroll en dispositivos pequeños */
+            }
 
-    </head> 
+            #formulario {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                max-width: 400px;
+                width: 90%; /* Cambiado a 90% para adaptarse mejor a diferentes tamaños de pantalla */
+                box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
+            }
+
+            .pantalla {
+                display: none;
+            }
+
+            .pantalla.activa {
+                display: block;
+            }
+
+            .button {
+                display: none;
+            }
+
+            label {
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: block;
+                color: #333;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            select,
+            textarea {
+                width: 100%; /* Cambiado a 100% para adaptarse al contenedor */
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
+            }
+
+            input[type="button"],
+            input[type="submit"] {
+                background-color: #28a745;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                width: 100%; /* Cambiado a 100% para adaptarse al contenedor */
+                box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
+            }
+
+            input[type="button"]:hover,
+            input[type="submit"]:hover {
+                background-color: #218838;
+            }
+
+            /* Media queries para adaptar el formulario en pantallas más pequeñas */
+            @media (max-width: 768px) {
+                #formulario {
+                    width: 90%;
+                    max-width: 90%; /* Reducido el máximo para que se vea bien en dispositivos más pequeños */
+                }
+            }
+
+            @media (max-width: 576px) {
+                #formulario {
+                    width: 90%;
+                    max-width: 100%; /* Hacer el formulario ocupar todo el ancho disponible en pantallas muy pequeñas */
+                    padding: 15px; /* Ajuste de padding para pantallas muy pequeñas */
+                }
+            }
+        </style>
+    </head>
     <body>
         <form id="formulario" method="post" action="https://script.google.com/macros/s/AKfycbw8KbsOOjv9LEy8DUsYhpCbx26yI8dlcEwQ69cr7erk0TcF1vLu3CUEp-yMS5IPSr1w/exec">
             
@@ -156,7 +155,9 @@
                 <div id="pantallaN" style="display: none;">
                     <label for="added">¿Cuáles?</label>
                     <select id="added" name="added">
-                        <option value="iPhone">iPhone</option>
+                        <option value="Cargador">Cargador</option>
+                        <option value="Funda">Funda</option>
+                        <option value="Vidrio templado">Vidrio templado</option>
                     </select>
                 </div>
                 <input type="button" id="continuarSinAgregar" value="Continuar" onclick="mostrarPantalla(8)" class="button">
@@ -303,7 +304,7 @@ function generarResumen() {
                     // Manejar errores o mostrar un mensaje al usuario si falla el envío
                 });
             }
-</script>
-
+        </script>
     </body>
 </html>
+
