@@ -280,32 +280,28 @@
     document.getElementById('resumenDatos').innerHTML = resumen;
 }
             //Enviar datos a Google Apps Script
-            function generarResumen() {
-    const nombre = document.getElementById('fullname').value;
-    const contacto = document.getElementById('number').value;
-    const email = document.getElementById('email').value;
-    const pago = document.getElementById('pay').value;
-    const entrega = document.getElementById('delivery').value;
-    const direccion = entrega === 'envio' ? document.getElementById('address').value : 'N/A';
-    const add = document.getElementById('add').value;
-    const added = add === 'si' ? document.getElementById('added').value : 'Ninguno';
-    
-    // Obtener el nombre del producto seleccionado
-    const productoSeleccionado = getParameterByName('producto');
-    
-    const resumen = `
-        <p><strong>Nombre Completo:</strong> ${nombre}</p>
-        <p><strong>Contacto:</strong> ${contacto}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Producto:</strong> ${productoSeleccionado}</p>
-        <p><strong>Método de Pago:</strong> ${pago}</p>
-        <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
-        <p><strong>Dirección:</strong> ${direccion}</p>
-        <p><strong>Producto Adicional:</strong> ${added}</p>
-    `;
-    
-    document.getElementById('resumenDatos').innerHTML = resumen;
-}
+            function enviarOrdenCompra(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+                const form = document.getElementById('formulario');
+                const formData = new FormData(form);
+
+                fetch('https://script.google.com/macros/s/AKfycby8ipSe0PWaQvquGYR8nHjdDD52bQtChEe5nKZzal6xcScBKiJSwbTqoSh5PN29r4X7/exec', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        mostrarPantalla(9); // Mostrar pantalla de orden enviada si la respuesta es exitosa
+                    } else {
+                        throw new Error('Error al enviar la orden de compra');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Manejar errores o mostrar un mensaje al usuario si falla el envío
+                });
+            }
         </script>
     </body>
 </html>
