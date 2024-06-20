@@ -94,7 +94,7 @@
 
     </head> 
     <body>
-        <form id="formulario" method="post" action="https://script.google.com/macros/s/AKfycbxhO5KvEk4chrBFoa-v0HxknyG6bnE3BeUtarvkVRKzfYg4oirwu5yQvMEiXmVkuceQ/exec">
+        <form id="formulario" method="post" action="https://script.google.com/macros/s/AKfycby7da-poMBnm7uy9kLR-MN_7smtP57M0NvpKcGrsbc_1iJ4hlO7cXFBTkQLr4FUrvTU/exec">
             
             <div class="pantalla activa" id="pantalla1">
                 <label for="start">¿Listo para hacer tu pedido?</label>
@@ -198,7 +198,7 @@ function generarResumen() {
                 const nombre = document.getElementById('fullname').value;
                 const contacto = document.getElementById('number').value;
                 const email = document.getElementById('email').value;
-                const producto = productoSeleccionado;
+                const producto = document.getElementById('nombreProducto');
                 const pago = document.getElementById('pay').value;
                 const entrega = document.getElementById('delivery').value;
                 const direccion = entrega === 'envio' ? document.getElementById('address').value : 'N/A';
@@ -224,7 +224,7 @@ function generarResumen() {
                 const form = document.getElementById('formulario');
                 const formData = new FormData(form);
 
-                fetch('https://script.google.com/macros/s/AKfycbxhO5KvEk4chrBFoa-v0HxknyG6bnE3BeUtarvkVRKzfYg4oirwu5yQvMEiXmVkuceQ/exec', {
+                fetch('https://script.google.com/macros/s/AKfycby7da-poMBnm7uy9kLR-MN_7smtP57M0NvpKcGrsbc_1iJ4hlO7cXFBTkQLr4FUrvTU/exec', {
                     method: 'POST',
                     body: formData
                 })
@@ -244,3 +244,4 @@ function generarResumen() {
 
     </body>
 </html>
+
