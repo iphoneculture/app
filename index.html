@@ -296,7 +296,8 @@ function generarResumen() {
                     if (response.ok) {
                         mostrarPantalla(9);
                         setTimeout(function() {
-                            window.location.href = 'https://www.instagram.com/iphoneculture_';
+                            window.history.back();
+                            window.close();
                         }, 3000);
                     } else {
                         throw new Error('Error al enviar la orden de compra');
