@@ -294,7 +294,8 @@ function generarResumen() {
                 })
                 .then(response => {
                     if (response.ok) {
-                        mostrarPantalla(9); // Mostrar pantalla de orden enviada si la respuesta es exitosa
+                        mostrarPantalla(9);
+                        window.location.href = 'https://www.iphoneculture.com/inicio';
                     } else {
                         throw new Error('Error al enviar la orden de compra');
                     }
