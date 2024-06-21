@@ -13,7 +13,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh; /* Cambié height a min-height para permitir que el contenido haga scroll en dispositivos pequeños */
             }
 
             #formulario {
@@ -21,9 +20,9 @@
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                max-width: 400px;
-                width: 90%; /* Cambiado a 90% para adaptarse mejor a diferentes tamaños de pantalla */
-                box-sizing: border-box; /* Añadido para que el padding y border cuenten dentro del ancho total */
+                max-width: 100%; /* Ajustar según tus necesidades */
+                width: 90%;
+                box-sizing: border-box;
             }
 
             .pantalla {
@@ -74,22 +73,22 @@
             input[type="submit"]:hover {
                 background-color: #218838;
             }
-
-            /* Media queries para adaptar el formulario en pantallas más pequeñas */
+            
             @media (max-width: 768px) {
                 #formulario {
                     width: 90%;
-                    max-width: 90%; /* Reducido el máximo para que se vea bien en dispositivos más pequeños */
+                    max-width: 90%; /* Ajusta según sea necesario */
                 }
             }
-
+            
             @media (max-width: 576px) {
                 #formulario {
                     width: 90%;
-                    max-width: 100%; /* Hacer el formulario ocupar todo el ancho disponible en pantallas muy pequeñas */
+                    max-width: 100%; /* Ajusta para ocupar todo el ancho en dispositivos pequeños */
                     padding: 15px; /* Ajuste de padding para pantallas muy pequeñas */
                 }
             }
+
         </style>
     </head>
     <body>
