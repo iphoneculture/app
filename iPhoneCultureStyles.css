@@ -1,12 +1,60 @@
 @font-face {
     font-family: 'SF Pro Rounded';
-    src: url('https://github.com/iphoneculture/app/tree/main/iPhone%20Culture%20Fonts') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Black.otf') format('opentype');
+    font-weight: black;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Bold.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Heavy.otf') format('opentype');
+    font-weight: heavy;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Light.otf') format('opentype');
+    font-weight: light;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Medium.otf') format('opentype');
+    font-weight: medium;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Regular.otf') format('opentype');
+    font-weight: regular;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Semibold.otf') format('opentype');
+    font-weight: semibold;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Thin.otf') format('opentype');
+    font-weight: thin;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('https://github.com/iphoneculture/app/blob/main/iPhone%20Culture%20Fonts/SF-Pro-Rounded-Ultralight.otf') format('opentype');
+    font-weight: ultralight;
 }
 
 body {
     font-family: "SF Pro Rounded";
+    font-weight: medium;
     font-size: 100%;
     background-color: #f3f6f0;
     margin: 0;
