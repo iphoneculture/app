@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>iPhone Culture - Orden de Compra</title>
+        <link href="https://iphoneculture.github.io/app/iPhoneCultureStyles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <form
+            id="formulario"
+            method="post"
+            action="https://script.google.com/macros/s/AKfycbwBM9u34re9YsPPsBCT1Vwvpp-ccaw_J_XnD2C9Yle17g7eFzaIT9Smc5b1i4ih2LMK/exec">
+            <input type="hidden" id="producto" name="producto" value="" />
+            <input type="hidden" id="pay" name="pay" value="" />
+            <input type="hidden" id="delivery" name="delivery" value="" />
+
+            <div class="pantalla activa" id="pantalla1">
+                <label for="Comenzar">¿Listo para hacer tu pedido?</label>
+                <input
+                    type="button"
+                    value="Comenzar"
+                    onclick="mostrarPantalla(2)" />
+            </div>
+
+            <div class="pantalla" id="pantalla2">
+                <label>Genial! Primero necesitamos saber de vos:</label>
+                <span>Nombre y Apellido</span>
+                <input
+                    type="text"
+                    id="fullname"
+                    name="fullname"
+                    required
+                    pattern="[a-zA-ZÀ-ÿ\s]{1,}"
+                    oninput="checkInputs()" />
+                <span>Número de Teléfono</span>
+                <input
+                    type="text"
+                    id="number"
+                    name="number"
+                    required
+                    pattern="\+?\d{1,15}"
+                    oninput="checkInputs()" />
+                <span>Correo Electrónico</span>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                    oninput="checkInputs()" />
+                <input
+                    type="button"
+                    value="Continuar"
+                    onclick="mostrarPantalla(3)"
+                    class="button" />
+            </div>
+
+            <div class="pantalla" id="pantalla3">
+                <label for="pay">Por favor, seleccione cómo desea pagar</label>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Efectivo en ARS')">
+                    Efectivo en ARS
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Efectivo en USD')">
+                    Efectivo en USD
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Transferencia')">
+                    Transferencia
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Tarjeta de Crédito en 1 Cuota')">
+                    Tarjeta de Crédito en 1 Cuota
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Tarjeta de Crédito en 3 Cuotas')">
+                    Tarjeta de Crédito en 3 Cuotas
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Tarjeta de Crédito en 6 Cuotas')">
+                    Tarjeta de Crédito en 6 Cuotas
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Tarjeta de Crédito en 9 Cuotas')">
+                    Tarjeta de Crédito en 9 Cuotas
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Tarjeta de Crédito en 12 Cuotas')">
+                    Tarjeta de Crédito en 12 Cuotas
+                </button>
+                <button
+                    type="button"
+                    class="uso-button"
+                    onclick="selectOption('Pago Combinado, a acordar')">
+                    Pago Combinado, a acordar
+                </button>
+            </div>
+
+            <div class="pantalla" id="pantalla4">
+                <label for="delivery"
+                    >Por favor, seleccione su tipo de entrega</label
+                >
+                <div>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectDelivery('Retiro en el local')">
+                        Retiro en el local
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectDelivery('Envío por correo')">
+                        Envío por correo
+                    </button>
+                </div>
+                <br />
+                <div id="direccion" style="display: none">
+                    <label for="address"
+                        >¿A qué dirección enviamos el producto?</label
+                    >
+                    <input type="text" id="address" name="address" required />
+                    <span>Indicá domicilio, código postal y ciudad </span>
+                    <br />
+                    <input
+                        type="button"
+                        id="continuarDireccion"
+                        value="Continuar"
+                        onclick="mostrarPantalla(5)"
+                        class="button"
+                        style="display: none" />
+                </div>
+            </div>
+
+            <div class="pantalla" id="pantalla5">
+                <label>Resumen de la Orden de Compra</label>
+                <div id="resumenDatos">
+                    <!-- Aquí se insertará dinámicamente el resumen generado -->
+                </div>
+                <input
+                    type="button"
+                    value="Enviar Orden de Compra"
+                    onclick="enviarOrdenCompra(event)" />
+            </div>
+
+            <div class="pantalla" id="pantalla6">
+                <label>
+                    Orden de Compra Enviada. En breve nos comunicaremos con
+                    usted.
+                </label>
+            </div>
+        </form>
+
+        <script>
+            function mostrarPantalla(numero) {
+                // Ocultar todas las pantallas
+                document.querySelectorAll(".pantalla").forEach((pantalla) => {
+                    pantalla.classList.remove("activa");
+                });
+
+                // Mostrar la pantalla correspondiente
+                const pantallaMostrar = document.getElementById(
+                    "pantalla" + numero
+                );
+                pantallaMostrar.classList.add("activa");
+
+                // Generar y mostrar el resumen si es la pantalla 6 y se seleccionó envío por correo
+                if (
+                    numero === 5 &&
+                    document.getElementById("delivery").value ===
+                        "Envío por correo"
+                ) {
+                    generarResumen();
+                }
+            }
+
+            function selectOption(value) {
+                document.getElementById("pay").value = value;
+                mostrarPantalla(4);
+            }
+
+            function selectDelivery(option) {
+                document.getElementById("delivery").value = option;
+                if (option === "Envío por correo") {
+                    document.getElementById("direccion").style.display =
+                        "block";
+                    document.getElementById("address").required = true;
+                    // Mostrar botón de continuar al ingresar una dirección válida
+                    document
+                        .getElementById("address")
+                        .addEventListener("input", function () {
+                            if (this.checkValidity()) {
+                                document.getElementById(
+                                    "continuarDireccion"
+                                ).style.display = "block";
+                            } else {
+                                document.getElementById(
+                                    "continuarDireccion"
+                                ).style.display = "none";
+                            }
+                        });
+                } else if (option === "Retiro en el local") {
+                    document.getElementById("direccion").style.display =
+                        "block";
+                    document.getElementById("address").value =
+                        "Obrero Argentino 295, Q8300 Neuquén"; // Ajustar con la dirección real del local
+                    document.getElementById("address").required = true;
+                    document.getElementById(
+                        "continuarDireccion"
+                    ).style.display = "block";
+                    mostrarPantalla(5); // Mostrar automáticamente la siguiente pantalla
+                    generarResumen(); // Generar el resumen automáticamente
+                } else {
+                    document.getElementById("direccion").style.display = "none";
+                    document.getElementById("address").required = false;
+                    mostrarPantalla(5); // Mostrar automáticamente la siguiente pantalla
+                }
+            }
+
+            function checkInputs() {
+                const pantallaActual =
+                    document.querySelector(".pantalla.activa");
+                const inputs = pantallaActual.querySelectorAll(
+                    "input[required], select[required]"
+                );
+                let completo = true;
+
+                inputs.forEach((input) => {
+                    if (!input.checkValidity()) {
+                        completo = false;
+                    }
+                });
+
+                const button = pantallaActual.querySelector(".button");
+                if (completo) {
+                    button.style.display = "block";
+                } else {
+                    button.style.display = "none";
+                }
+            }
+
+            // Función para obtener parámetro de la URL por nombre
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+                const results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return "";
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            // Obtener el nombre del producto de la URL
+            const productoSeleccionado = getParameterByName("producto");
+
+            //Asignar el nombre del producto al campo oculto
+            document.getElementById("producto").value = productoSeleccionado;
+
+            // Mostrar el nombre del producto seleccionado en el formulario
+            document.getElementById("nombreProducto").textContent =
+                productoSeleccionado;
+
+            function generarResumen() {
+                const nombre = document.getElementById("fullname").value;
+                const contacto = document.getElementById("number").value;
+                const email = document.getElementById("email").value;
+                const producto = productoSeleccionado;
+                const pago = document.getElementById("pay").value;
+                const entrega = document.getElementById("delivery").value;
+                const direccion = document.getElementById("address").value;
+                const resumen = `
+                <p><strong>Nombre Completo:</strong> ${nombre}</p>
+                <p><strong>Contacto:</strong> ${contacto}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Producto:</strong> ${producto}</p>
+                <p><strong>Método de Pago:</strong> ${pago}</p>
+                <p><strong>Tipo de Entrega:</strong> ${entrega}</p>
+                <p><strong>Dirección:</strong> ${direccion}</p>
+            `;
+
+                document.getElementById("resumenDatos").innerHTML = resumen;
+            }
+
+            // Enviar datos a Google Apps Script
+            function enviarOrdenCompra(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+                const form = document.getElementById("formulario");
+                const formData = new FormData(form);
+
+                fetch(
+                    "https://script.google.com/macros/s/AKfycbwBM9u34re9YsPPsBCT1Vwvpp-ccaw_J_XnD2C9Yle17g7eFzaIT9Smc5b1i4ih2LMK/exec",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                )
+                    .then((response) => {
+                        if (response.ok) {
+                            mostrarPantalla(6);
+                            setTimeout(function () {
+                                window.history.back();
+                                window.close();
+                            }, 3000);
+                        } else {
+                            throw new Error(
+                                "Error al enviar la orden de compra"
+                            );
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        // Manejar errores o mostrar un mensaje al usuario si falla el envío
+                    });
+            }
+        </script>
+    </body>
+</html>
