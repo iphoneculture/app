@@ -1,6 +1,8 @@
 @font-face {
     font-family: 'SF Pro Rounded';
     src: url('https://github.com/iphoneculture/app/blob/main/SF-Pro-Rounded-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
