@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>iPhone Culture - Encontrá tu iPhone Ideal</title>
+        <link href="iPhoneCultureStyle.css" rel="stylesheet" />
+    </head>
+    <body>
+        <form id="formulario" onsubmit="enviarMensaje(event)">
+            <div class="pantalla activa" id="pantalla1">
+                <input
+                    type="button"
+                    value="Quiero encontrar mi iPhone ideal"
+                    onclick="mostrarPantalla(2)" />
+            </div>
+
+            <div class="pantalla" id="pantalla2">
+                <label for="uso"
+                    >¿Para qué utilizarías principalmente tu iPhone?</label
+                >
+                <div id="uso">
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('uso', 'Redes Sociales', 3)">
+                        Redes Sociales
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('uso', 'Fotografía/Videografía', 3)">
+                        Fotografía/Videografía
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('uso', 'Trabajo/Productividad', 3)">
+                        Trabajo/Productividad
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('uso', 'Navegar por Internet', 3)">
+                        Navegar por Internet
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('uso', 'Juegos', 3)">
+                        Juegos
+                    </button>
+                </div>
+            </div>
+
+            <div class="pantalla" id="pantalla3">
+                <label for="camara"
+                    >¿Qué tan importante es para vos la calidad de la
+                    cámara?</label
+                >
+                <div id="camara">
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('camara', 'Muy importante', 4)">
+                        Muy importante
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('camara', 'Importante', 4)">
+                        Importante
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('camara', 'Moderadamente importante', 4)">
+                        Moderadamente importante
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('camara', 'Poco importante', 4)">
+                        Poco importante
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('camara', 'Nada importante', 4)">
+                        Nada importante
+                    </button>
+                </div>
+            </div>
+
+            <div class="pantalla" id="pantalla4">
+                <label for="capacidad"
+                    >¿Cuánto almacenamiento crees que necesitas?</label
+                >
+                <div id="capacidad">
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('capacidad', '64', 5)">
+                        64 GB
+                    </button>
+                    <span
+                        >Equivale aproximadamente a 22,528 fotos de alta
+                        calidad</span
+                    >
+                    <br />
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('capacidad', '128', 5)">
+                        128 GB
+                    </button>
+                    <span
+                        >Equivale aproximadamente a 55,296 fotos de alta
+                        calidad</span
+                    >
+                    <br />
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('capacidad', '256', 5)">
+                        256 GB
+                    </button>
+                    <span
+                        >Equivale aproximadamente a 120,832 fotos de alta
+                        calidad</span
+                    >
+                    <br />
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('capacidad', '512', 5)">
+                        512 GB
+                    </button>
+                    <span
+                        >Equivale aproximadamente a 251,904 fotos de alta
+                        calidad</span
+                    >
+                    <br />
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('capacidad', '1', 5)">
+                        1 TB
+                    </button>
+                    <span
+                        >Equivale aproximadamente a 514,048 fotos de alta
+                        calidad</span
+                    >
+                </div>
+            </div>
+
+            <div class="pantalla" id="pantalla5">
+                <label for="tamaño"
+                    >¿Tenés alguna preferencia en el tamaño de la
+                    pantalla?</label
+                >
+                <div id="tamaño">
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('tamaño', 'Chica', 6)">
+                        6,1"
+                    </button>
+                    <span>Ideal para manos más chicas</span>
+                    <br />
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('tamaño', 'Grande', 6)">
+                        6,7"
+                    </button>
+                    <span>Ideal para manos más grandes</span>
+                </div>
+            </div>
+
+            <div class="pantalla" id="pantalla6">
+                <label for="presupuesto"
+                    >¿Cuál es tu presupuesto máximo para comprar un
+                    iPhone?</label
+                >
+                <div id="presupuesto">
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('presupuesto', 'Menos de 500', 7)">
+                        Menos de 500 USD
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('presupuesto', 'Entre 500 y 800', 7)">
+                        Entre 500 USD y 800 USD
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('presupuesto', 'Entre 800 y 1200', 7)">
+                        Entre 800 USD y 1200 USD
+                    </button>
+                    <button
+                        type="button"
+                        class="uso-button"
+                        onclick="selectOption('presupuesto', 'Más de 1200', 7)">
+                        Más de 1200 USD
+                    </button>
+                </div>
+            </div>
+
+            <div class="pantalla" id="pantalla7">
+                <label>Ingresá tu email para conocer tu iPhone ideal</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                    oninput="checkInputs()" />
+                <input
+                    type="button"
+                    value="Enviar"
+                    onclick="enviarMensaje(event)"
+                    class="button" />
+            </div>
+
+            <div class="pantalla" id="pantalla8">
+                <label id="texto-recomendacion"></label>
+                <input
+                    type="button"
+                    value="Explorar iPhone"
+                    onclick="window.location.href='https://www.apple.com/iphone/'" />
+            </div>
+        </form>
+
+        <script>
+            function checkInputs() {
+                var email = document.getElementById("email");
+                var enviarButton = document.querySelector("#pantalla7 .button");
+                if (email.checkValidity()) {
+                    enviarButton.style.display = "inline-block";
+                } else {
+                    enviarButton.style.display = "none";
+                }
+            }
+
+            let selectedOptions = {
+                uso: "",
+                camara: "",
+                capacidad: "",
+                tamaño: "",
+                presupuesto: ""
+            };
+
+            function selectOption(category, option, nextScreen) {
+                selectedOptions[category] = option;
+                mostrarPantalla(nextScreen);
+            }
+
+            function mostrarPantalla(numero) {
+                document.querySelectorAll(".pantalla").forEach((pantalla) => {
+                    pantalla.classList.remove("activa");
+                });
+                document
+                    .getElementById("pantalla" + numero)
+                    .classList.add("activa");
+            }
+
+            function enviarMensaje(event) {
+                event.preventDefault();
+
+                var uso = selectedOptions.uso;
+                var camara = selectedOptions.camara;
+                var capacidad = selectedOptions.capacidad;
+                var tamaño = selectedOptions.tamaño;
+                var presupuesto = selectedOptions.presupuesto;
+
+                var puntos_iPhone11 = 0;
+                var puntos_iPhone13 = 0;
+                var puntos_iPhone14 = 0;
+                var puntos_iPhone14Pro = 0;
+                var puntos_iPhone14ProMax = 0;
+                var puntos_iPhone15 = 0;
+                var puntos_iPhone15Plus = 0;
+                var puntos_iPhone15Pro = 0;
+                var puntos_iPhone15ProMax = 0;
+
+                // Asignar puntos basados en las respuestas
+                // Uso del iPhone
+                if (uso === "Redes Sociales") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 4;
+                    puntos_iPhone14Pro += 5;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                } else if (uso === "Fotografía/Videografía") {
+                    puntos_iPhone11 += 1;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 4;
+                    puntos_iPhone14Pro += 5;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                } else if (uso === "Trabajo/Productividad") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 5;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 3;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                } else if (uso === "Navegar por Internet") {
+                    puntos_iPhone11 += 3;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 4;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 4;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 4;
+                    puntos_iPhone15ProMax += 4;
+                } else if (uso === "Juegos") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                }
+
+                // Calidad de la cámara
+                if (camara === "Muy importante") {
+                    puntos_iPhone11 += 1;
+                    puntos_iPhone13 += 2;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 5;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                } else if (camara === "Importante") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 2;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 5;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                } else if (camara === "Moderadamente importante") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 2;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 4;
+                    puntos_iPhone15 += 3;
+                    puntos_iPhone15Plus += 3;
+                    puntos_iPhone15Pro += 4;
+                    puntos_iPhone15ProMax += 4;
+                } else if (camara === "Poco importante") {
+                    puntos_iPhone11 += 3;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 4;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 4;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 4;
+                    puntos_iPhone15ProMax += 4;
+                } else if (camara === "Nada importante") {
+                    puntos_iPhone11 += 3;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 3;
+                    puntos_iPhone14ProMax += 3;
+                    puntos_iPhone15 += 3;
+                    puntos_iPhone15Plus += 3;
+                    puntos_iPhone15Pro += 3;
+                    puntos_iPhone15ProMax += 3;
+                }
+
+                // Capacidad de almacenamiento
+                if (capacidad === "64") {
+                    puntos_iPhone11 += 5;
+                    puntos_iPhone13 += 4;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 2;
+                    puntos_iPhone14ProMax += 2;
+                    puntos_iPhone15 += 3;
+                    puntos_iPhone15Plus += 3;
+                    puntos_iPhone15Pro += 2;
+                    puntos_iPhone15ProMax += 2;
+                } else if (capacidad === "128") {
+                    puntos_iPhone11 += 4;
+                    puntos_iPhone13 += 5;
+                    puntos_iPhone14 += 4;
+                    puntos_iPhone14Pro += 3;
+                    puntos_iPhone14ProMax += 3;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 3;
+                    puntos_iPhone15ProMax += 3;
+                } else if (capacidad === "256") {
+                    puntos_iPhone11 += 3;
+                    puntos_iPhone13 += 4;
+                    puntos_iPhone14 += 5;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 4;
+                    puntos_iPhone15 += 5;
+                    puntos_iPhone15Plus += 5;
+                    puntos_iPhone15Pro += 4;
+                    puntos_iPhone15ProMax += 4;
+                } else if (capacidad === "512") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 4;
+                    puntos_iPhone14Pro += 5;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 5;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                } else if (capacidad === "1") {
+                    puntos_iPhone11 += 1;
+                    puntos_iPhone13 += 2;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 4;
+                    puntos_iPhone15 += 5;
+                    puntos_iPhone15Plus += 5;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                }
+
+                // Tamaño de la pantalla
+                if (tamaño === "Chica") {
+                    puntos_iPhone11 += 4;
+                    puntos_iPhone13 += 4;
+                    puntos_iPhone14 += 4;
+                    puntos_iPhone14Pro += 3;
+                    puntos_iPhone14ProMax += 2;
+                    puntos_iPhone15 += 4;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 3;
+                    puntos_iPhone15ProMax += 2;
+                } else if (tamaño === "Grande") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 2;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 3;
+                    puntos_iPhone15Plus += 4;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                }
+
+                // Presupuesto máximo
+                if (presupuesto === "Menos de 500") {
+                    puntos_iPhone11 += 5;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 1;
+                    puntos_iPhone14Pro += 1;
+                    puntos_iPhone14ProMax += 1;
+                    puntos_iPhone15 += 1;
+                    puntos_iPhone15Plus += 1;
+                    puntos_iPhone15Pro += 1;
+                    puntos_iPhone15ProMax += 1;
+                } else if (presupuesto === "Entre 500 y 800") {
+                    puntos_iPhone11 += 4;
+                    puntos_iPhone13 += 5;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 2;
+                    puntos_iPhone14ProMax += 2;
+                    puntos_iPhone15 += 2;
+                    puntos_iPhone15Plus += 2;
+                    puntos_iPhone15Pro += 2;
+                    puntos_iPhone15ProMax += 2;
+                } else if (presupuesto === "Entre 800 y 1200") {
+                    puntos_iPhone11 += 2;
+                    puntos_iPhone13 += 3;
+                    puntos_iPhone14 += 5;
+                    puntos_iPhone14Pro += 4;
+                    puntos_iPhone14ProMax += 4;
+                    puntos_iPhone15 += 5;
+                    puntos_iPhone15Plus += 5;
+                    puntos_iPhone15Pro += 4;
+                    puntos_iPhone15ProMax += 4;
+                } else if (presupuesto === "Más de 1200") {
+                    puntos_iPhone11 += 1;
+                    puntos_iPhone13 += 2;
+                    puntos_iPhone14 += 3;
+                    puntos_iPhone14Pro += 5;
+                    puntos_iPhone14ProMax += 5;
+                    puntos_iPhone15 += 5;
+                    puntos_iPhone15Plus += 5;
+                    puntos_iPhone15Pro += 5;
+                    puntos_iPhone15ProMax += 5;
+                }
+
+                // Encontrar el modelo con la mayor puntuación
+                var maxPuntos = Math.max(
+                    puntos_iPhone11,
+                    puntos_iPhone13,
+                    puntos_iPhone14,
+                    puntos_iPhone14Pro,
+                    puntos_iPhone14ProMax,
+                    puntos_iPhone15,
+                    puntos_iPhone15Plus,
+                    puntos_iPhone15Pro,
+                    puntos_iPhone15ProMax
+                );
+
+                var modeloRecomendado = "";
+
+                if (maxPuntos === puntos_iPhone11) {
+                    modeloRecomendado = "iPhone 11";
+                } else if (maxPuntos === puntos_iPhone13) {
+                    modeloRecomendado = "iPhone 13";
+                } else if (maxPuntos === puntos_iPhone14) {
+                    modeloRecomendado = "iPhone 14";
+                } else if (maxPuntos === puntos_iPhone14Pro) {
+                    modeloRecomendado = "iPhone 14 Pro";
+                } else if (maxPuntos === puntos_iPhone14ProMax) {
+                    modeloRecomendado = "iPhone 14 Pro Max";
+                } else if (maxPuntos === puntos_iPhone15) {
+                    modeloRecomendado = "iPhone 15";
+                } else if (maxPuntos === puntos_iPhone15Plus) {
+                    modeloRecomendado = "iPhone 15 Plus";
+                } else if (maxPuntos === puntos_iPhone15Pro) {
+                    modeloRecomendado = "iPhone 15 Pro";
+                } else if (maxPuntos === puntos_iPhone15ProMax) {
+                    modeloRecomendado = "iPhone 15 Pro Max";
+                }
+
+                document.getElementById("texto-recomendacion").innerText =
+                    "Te recomendamos el " + modeloRecomendado;
+                mostrarPantalla("8");
+            }
+        </script>
+    </body>
+</html>
