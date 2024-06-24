@@ -1,0 +1,118 @@
+body {
+    font-family: "SF Pro Rounded";
+    font-size: 100%;
+    background-color: #f3f6f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#formulario {
+    background-color: #f3f6f0;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #dfdfdf;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pantalla {
+    display: none;
+}
+
+.pantalla.activa {
+    display: block;
+}
+
+.button {
+    display: none;
+}
+
+.uso-button {
+    font-family: "SF Pro Rounded";
+    font-size: 80%;
+    font-weight: 500;
+    color: #000000;
+    display: block;
+    margin: 5px 0;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.uso-button:hover {
+    background-color: #dfdfdf;
+}
+.uso-button:active {
+    background-color: #dfdfdf;
+}
+
+label {
+    font-size: 100%;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+}
+
+span {
+    font-size: 80%;
+    color: #000000;
+    margin-bottom: 5px;
+    text-align: center;
+    display: block;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #dfdfdf;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+input[type="button"],
+input[type="submit"] {
+    background-color: #29abe2;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 80%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background-color: #2496c6;
+}
+
+/* Media queries para adaptar el formulario en pantallas más pequeñas */
+@media (max-width: 768px) {
+    #formulario {
+        width: 90%;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    #formulario {
+        width: 90%;
+        max-width: 100%; /* Hacer el formulario ocupar todo el ancho disponible en pantallas muy pequeñas */
+        padding: 15px; /* Ajuste de padding para pantallas muy pequeñas */
+    }
+}
